@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	
+	<context:component-scan base-package="com.nike.spring"/>
+	<context:component-scan base-package="com.nike.reporting"/>
+	<context:component-scan base-package="com.nike.reporting.controller"/>
+	<context:component-scan base-package="com.nike.reporting.model"/>
+	<context:component-scan base-package="com.nike.reporting.util"/>
+	
+	<!-- Transaction Manager Configuration  -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	 <resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Tiles Configuration  -->
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    	<beans:property name="viewClass">
+        	<beans:value>org.springframework.web.servlet.view.tiles2.TilesView</beans:value>
+    	</beans:property>
+   	</beans:bean>
+   	
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+		<beans:list>
+		<beans:value>WEB-INF/tiles.xml</beans:value>
+		</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- Multipart File Resolver -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></beans:bean>
+	
+	<!-- Request Configuration  -->
+	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <beans:property name="messageConverters">
+            <beans:list>
+                <beans:ref bean="jsonMessageConverter"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    
+    <beans:bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+     <beans:property name="prefixJson" value="true" />
+    </beans:bean>
+	
+	<!-- DB Configuration  -->
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />		
+		<beans:property name="validationQuery" value="Select 1" />
+		<beans:property name="timeBetweenEvictionRunsMillis" value="3600" />
+		<beans:property name="testWhileIdle" value="true" />
+		<beans:property name="minEvictableIdleTimeMillis" value="3600" />
+		<beans:property name="initialSize" value="30" />
+		<beans:property name="maxActive"   value="20" />
+		<beans:property name="maxIdle" value="2" />
+		
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/nrtprod" /> 
+		<!-- <beans:property name="url" value="jdbc:mysql://punhjw233183d:3306/nrtdev" /> --> 
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="root" /> 
+		<!-- <beans:property name="password" value="nrtadmin" /> -->		
+	</beans:bean>
+		
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<beans:bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="packagesToScan">
+			<beans:list>
+				<beans:value>com.nike.reporting.model</beans:value>
+			</beans:list>
+		</beans:property>
+		<!-- <beans:property name="annotatedClasses">
+			<beans:list>
+				<beans:value>com.nike.reporting.model.Outage</beans:value>
+				<beans:value>com.nike.reporting.model.Incident</beans:value>
+				<beans:value>com.nike.reporting.model.Defect</beans:value>
+				<beans:value>com.nike.reporting.model.Enhancement</beans:value>
+				<beans:value>com.nike.reporting.model.Capability</beans:value>
+				<beans:value>com.nike.reporting.model.Application</beans:value>
+				<beans:value>com.nike.reporting.model.Priority</beans:value>
+				<beans:value>com.nike.reporting.model.ReportLookup</beans:value>
+				<beans:value>com.nike.reporting.model.Nrt_user</beans:value>
+				<beans:value>com.nike.reporting.model.Highlight</beans:value>
+				<beans:value>com.nike.reporting.model.ProblemManagementStatus</beans:value>
+				<beans:value>com.nike.reporting.model.BenefitType</beans:value>
+				<beans:value>com.nike.reporting.model.ProblemManagement</beans:value>
+				<beans:value>com.nike.reporting.model.PointOfFailure</beans:value>
+				<beans:value>com.nike.reporting.model.Severity</beans:value>
+				<beans:value>com.nike.reporting.model.Effort</beans:value>
+				<beans:value>com.nike.reporting.model.Category</beans:value>
+				<beans:value>com.nike.reporting.model.Complexity</beans:value>
+				<beans:value>com.nike.reporting.model.MTTRData</beans:value>
+			</beans:list>
+		</beans:property> -->
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <beans:property name="staticMethod" value="com.nike.reporting.util.OutageUtil.setSessionFactory"/>
+    <beans:property name="arguments">
+        <beans:list>
+            <beans:ref bean="hibernate4AnnotatedSessionFactory"/>
+        </beans:list>
+   	</beans:property>   	
+	</beans:bean>
+	
+	<beans:bean id="outageDAO" class="com.nike.reporting.dao.OutageDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="userDAO" class="com.nike.reporting.dao.UserDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="problemManagementDAO" class="com.nike.reporting.dao.ProblemManagementDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="applicationDAO" class="com.nike.reporting.dao.ApplicationDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="highlightDAO" class="com.nike.reporting.dao.HighlightDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="outageService" class="com.nike.reporting.service.OutageServiceImpl">
+		<beans:property name="outageDAO" ref="outageDAO"></beans:property>
+	</beans:bean>
+	<beans:bean id="userService" class="com.nike.reporting.service.UserServiceImpl">
+		<beans:property name="userDAO" ref="userDAO"></beans:property>
+	</beans:bean>
+	<beans:bean id="problemManagementService" class="com.nike.reporting.service.ProblemManagementServiceImpl">
+		<beans:property name="problemManagementDAO" ref="problemManagementDAO"></beans:property>
+	</beans:bean>
+	<beans:bean id="reportingService" class="com.nike.reporting.service.ReportingServiceImpl">
+	</beans:bean>
+	<beans:bean id="highlightService" class="com.nike.reporting.service.HighlightServiceImpl">
+	</beans:bean>
+	<beans:bean id="effortService" class="com.nike.reporting.service.EffortServiceImpl">
+		<beans:property name="effortDAO" ref="effortDAO"></beans:property>
+	</beans:bean>
+	<beans:bean id="effortDAO" class="com.nike.reporting.dao.EffortDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="highlightConvertor" class="com.nike.reporting.model.converter.HighlightConvertor">
+		<beans:property name="highlightDAO" ref="highlightDAO"></beans:property>
+	</beans:bean>
+	<beans:bean id="problemManagementUtil" class="com.nike.reporting.util.ProblemManagementUtil">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="commonsUtil" class="com.nike.reporting.util.CommonsUtil">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="mttrService" class="com.nike.reporting.service.MTTRServiceImpl">
+		<beans:property name="MTTRDAO" ref="MTTRDAO"></beans:property>
+	</beans:bean>
+	<beans:bean id="MTTRDAO" class="com.nike.reporting.dao.MTTRDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+</beans:beans>

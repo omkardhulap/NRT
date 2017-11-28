@@ -1,0 +1,9 @@
+open cmd in c:/program files/mysql/bin
+mysql -u root -p -h localhost
+Password : root
+
+show databases;
+crete databases script;
+use <required_db>;
+create DB structure;
+

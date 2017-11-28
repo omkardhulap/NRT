@@ -1,0 +1,90 @@
+/*
+ * Base structure
+ */
+
+/* Move down navbar as header is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+/* navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+/* Sidebar */
+ .sidebar {
+  display: none;
+} 
+ @media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom:0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; 
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+} 
+
+
+/* Main content*/
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    bottom: 5%;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+/*Error Message*/
+.has-error{
+	color: #CB4721;
+	font-size:12px;
+	font-weight:bold;
+}
+
+.has-success{
+	color: #00FF00;
+	font-size:12px;
+	font-weight:bold;
+}
+
+/*Date Picker*/
+.datepicker {position:relative; z-index: 10000; }
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 40%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
+	
+	
+	

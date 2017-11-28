@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition" template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="title" value="Nike Report" />
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/views/nav.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+	</definition>
+
+	<definition name="index.definition" template="/WEB-INF/views/indexLayout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	<definition name="userlist" extends="base.definition">
+		<put-attribute name="title" value="User List" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/userMgmt/listUser.jsp" />
+	</definition>
+
+	<definition name="plannedOutage" extends="base.definition">
+		<put-attribute name="title" value="Planned Outage" />
+		<put-attribute name="body" value="/WEB-INF/views/plannedOutage.jsp" />
+	</definition>
+
+	<definition name="unplannedOutage" extends="base.definition">
+		<put-attribute name="title" value="Unplanned Outage" />
+		<put-attribute name="body" value="/WEB-INF/views/unplannedOutage.jsp" />
+	</definition>
+
+	<definition name="searchOutage" extends="base.definition">
+		<put-attribute name="title" value="Search Outage" />
+		<put-attribute name="body" value="/WEB-INF/views/searchOutage.jsp" />
+	</definition>
+	
+	<definition name="updateAAR" extends="base.definition">
+		<put-attribute name="title" value="Update Outage" />
+		<put-attribute name="body" value="/WEB-INF/views/updateAAR.jsp" />
+	</definition>
+	
+	<definition name="manageHighlight" extends="base.definition">
+		<put-attribute name="title" value="Highlights Management" />
+		<put-attribute name="body" value="/WEB-INF/views/manageHighlights.jsp" />
+	</definition>
+	
+	<definition name="manageEffort" extends="base.definition">
+		<put-attribute name="title" value="Efforts Management" />
+		<put-attribute name="body" value="/WEB-INF/views/manageEffort.jsp" />
+	</definition>
+	
+	<definition name="searchEffort" extends="base.definition">
+		<put-attribute name="title" value="Search Efforts" />
+		<put-attribute name="body" value="/WEB-INF/views/searchEffort.jsp" />
+	</definition>
+	
+	<definition name="uploadEffort" extends="base.definition">
+		<put-attribute name="title" value="Upload Effort" />
+		<put-attribute name="body" value="/WEB-INF/views/uploadEffort.jsp" />
+	</definition>
+	
+	<definition name="effortReports" extends="base.definition">
+		<put-attribute name="title" value="Effort Reports" />
+		<put-attribute name="body" value="/WEB-INF/views/effortReports.jsp" />
+	</definition>
+	
+	<definition name="manageProblem" extends="base.definition">
+		<put-attribute name="title" value="Problem Management" />
+		<put-attribute name="body" value="/WEB-INF/views/manageProblem.jsp" />
+	</definition>
+	
+	<definition name="searchPM" extends="base.definition">
+		<put-attribute name="title" value="Search Problem Management" />
+		<put-attribute name="body" value="/WEB-INF/views/searchPM.jsp" />
+	</definition>
+	
+	<definition name="uploadMTTR" extends="base.definition">
+		<put-attribute name="title" value="Upload " />
+		<put-attribute name="body" value="/WEB-INF/views/uploadMTTR.jsp" />
+	</definition>
+	
+	<definition name="searchMTTR" extends="base.definition">
+		<put-attribute name="title" value="MTTR Analysis" />
+		<put-attribute name="body" value="/WEB-INF/views/searchMTTR.jsp" />
+	</definition>
+	
+	<definition name="searchMTTRIncidents" extends="base.definition">
+		<put-attribute name="title" value="MTTR Incident Analysis" />
+		<put-attribute name="body" value="/WEB-INF/views/searchMTTRIncidents.jsp" />
+	</definition>
+	
+	<definition name="updateMTTRIncident" extends="base.definition">
+		<put-attribute name="title" value="MTTR Incident Update" />
+		<put-attribute name="body" value="/WEB-INF/views/updateMTTRIncident.jsp" />
+	</definition>
+
+	<definition name="home" extends="base.definition">
+		<put-attribute name="title" value="Home Page" />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+
+	<definition name="addUser" extends="base.definition">
+		<put-attribute name="title" value="User Management - Add" />
+		<put-attribute name="body" value="/WEB-INF/views/userMgmt/AddUser.jsp" />
+	</definition>
+
+	<definition name="listusers" extends="base.definition">
+		<put-attribute name="title" value="User Management - View" />
+		<put-attribute name="body" value="/WEB-INF/views/userMgmt/listUser.jsp" />
+	</definition>
+
+	<definition name="403" extends="base.definition">
+		<put-attribute name="title" value="Access Denied" />
+		<put-attribute name="body" value="/WEB-INF/views/403.jsp" />
+	</definition>
+
+	<definition name="admin" extends="base.definition">
+		<put-attribute name="title" value="Admin" />
+		<put-attribute name="body" value="/WEB-INF/views/admin.jsp" />
+	</definition>
+
+	<definition name="index" extends="index.definition">
+		<put-attribute name="body" value="/index.jsp" />
+	</definition>
+	
+	<definition name="signup" template="resources/html/userMgmt/registerUser.html"></definition>
+	
+	<definition name="generic_error" extends="index.definition">
+		<put-attribute name="body" value="/generic_error.jsp" />
+	</definition>
+
+</tiles-definitions>
